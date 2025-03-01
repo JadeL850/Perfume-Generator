@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfume Generator</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> 
+    
+</head>
+<body>
+    
+    <h1>What <i>impression</i> do you want to leave?</h1>
+    <h3>Pick a combo – any combo – I'll hint when it's the best one 🤭</h3>
+    
+    <label for="moodSelect">Select your mood:</label>
+    <select id="moodSelect">
+        <option value="romantic">Romantic 🌹</option>
+        <option value="energetic">Energetic ⚡️</option>
+        <option value="elegant">Elegant 😌</option>
+        <option value="sensual">Sensual 😏</option>
+        <option value="delicious">Delicious 😋</option>
+        <option value="fresh">Fresh 🎐</option>
+        <option value="crisp">Crisp 🍏</option>
+        <option value="earthy">Earthy 🍂</option>
+        
+    </select>
+    
+    <label for="noteInput">Choose a fragrance note:</label>
+    <select id="noteInput">
+        <option value="vanilla">Vanilla 🍦</option>
+        <option value="citrus">Citrus 🍋 </option>
+        <option value="floral">Floral 🌸</option>
+        <option value="oud">Oud 🔥</option>
+        <option value="gourmand">Gourmand 🍭</option>
+        <option value="aquatic">Aquatic 💧</option>
+        <option value="green">Green 🌿</option>
+        <option value="woody">Woody 🪵</option>
+    </select>
+    
+    <br>
+    <button onclick="generatePerfume()" id="generateButton">Get Perfume</button>
+    
+    <h2 id="perfumeName"></h2>
+    <img id="perfumeImage" src="" alt="Perfume Image">
+    
+    <script>
+        const perfumes = {
+    "romantic_vanilla": { 
+        name: "Dossier Ambery Vanilla (Inspired by YSL Black Opium)", 
+        img: "https://i.pinimg.com/736x/b3/0c/97/b30c9762be33c8d6cf395362c400d5fb.jpg"
+    },
+    "energetic_citrus": { 
+        name: "Dossier Citrus Ginger (Inspired by Chanel Bleu de Chanel)", 
+        img: "https://i.pinimg.com/736x/f3/60/8c/f3608cccd3f9763d29d32570dd11336e.jpg"
+    },
+    "elegant_floral": { 
+        name: "Dossier Floral Honeysuckle (Inspired by Gucci Bloom)", 
+        img: "https://i.pinimg.com/736x/47/6e/d6/476ed6d9a15bd57985b36b31416e9814.jpg"
+    },
+    "sensual_oud": { 
+        name: "Dossier Ambery Saffron (Inspired by MFK Baccarat Rouge 540)", 
+        img: "https://i.pinimg.com/736x/5a/f5/84/5af5845963ef3227e8ac3fa366fa1429.jpg"
+    },
+    "delicious_gourmand": { 
+        name: "Dossier Ambery Cherry (Inspired by Tom Ford Lost Cherry)", 
+        img: "https://i.pinimg.com/736x/c4/7d/82/c47d82c36369167cd52d6a735127d491.jpg"
+    },
+    "fresh_aquatic": { 
+        name: "Dossier Aquatic Lime (Inspired by Armani Acqua di Gio)", 
+        img: "	https://i.pinimg.com/736x/4e/29/ab/4e29ab63d2e8464fcd21ee395df256ba.jpg"
+    },
+    "crisp_green": { 
+        name: "Dossier Woody Green Apple (Inspired by Hugo Boss Bottled)", 
+        img: "https://m.media-amazon.com/images/I/71jZFM5xnkL._AC_UL640_FMwebp_QL65_.jpg"
+    },
+    "earthy_woody": { 
+        name: "Dossier Woody Sandalwood (Inspired by Le Labo Santal 33)", 
+        img: "https://i.pinimg.com/736x/11/cf/61/11cf61cf39c18821f2bb9e1a5fb16ef2.jpg"
+    }
+};
+
+function generatePerfume() {
+    const mood = document.getElementById("moodSelect").value.toLowerCase(); // selecting mood
+    const note = document.getElementById("noteInput").value.toLowerCase(); // selecting note
+    const key = `${mood}_${note}`; // generating results based on mood + note
+    
+    const perfume = perfumes[key]; // tries to find matches for combo
+    const perfumeNameElement = document.getElementById("perfumeName");
+    const perfumeImageElement = document.getElementById("perfumeImage");
+    
+    if (perfume) {
+        // If match found, then display
+        perfumeNameElement.textContent = `Recommended Perfume: ${perfume.name}`;
+        perfumeImageElement.src = perfume.img;
+        perfumeImageElement.style.display = "block";
+        document.body.className = mood; //creation of "mood" class so background color changes per combo
+    } else {
+        // If no match is found, default option to be shown
+        perfumeNameElement.textContent = " 🤷🏻‍♀️ Hmm – no recs yet, try another combo!";
+        perfumeImageElement.style.display = "none"; // Hide the perfume image when there's no match
+        noRecMessage.style.display = "block"; // Show the "no recs" message
+        noRecImage.style.display = "block"; // Show the "no recs" image
+
+        // Optional: You can also change the background to something like gray or a neutral color
+        document.body.style.backgroundColor = "#f0f0f0"; // Set background color when no match is found
+    }
+}
+
+// If no match found, default "floral honeysuckle" perfume generated for user
+function getRandomPerfume() {
+    const perfumeKeys = Object.keys(perfumes);
+    const randomKey = perfumeKeys[Math.floor(Math.random() * perfumeKeys.length)];
+    return perfumes[randomKey];
+}
+    </script>
+    
+</body>
+</html>

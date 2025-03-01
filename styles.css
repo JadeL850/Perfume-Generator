@@ -1,0 +1,193 @@
+body {
+    font-family: 'Prompt', sans-serif;
+    text-align: center;
+    margin-top: 3%;
+    background-color: #f5f5dc; /* Default light cream background */
+    transition: background-color 0.5s ease; /* Smooth transition for background color */
+}
+
+input, select {
+    width: 30%;
+    height: 2rem;
+    font-size: 1rem;
+    margin: 10px;
+}
+
+body {
+    font-family: "Merriweather Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 10;
+    font-style: normal;
+}
+
+h1 {
+    font-family: 'Playfair Display', cursive;
+    font-style:normal;
+    font-weight: 30;
+    font-size: 50px;
+}
+
+h3{
+    font-family: 'Playfair Display', cursive;
+    font-optical-sizing: auto;
+    font-size: 15px;
+    font-style: normal;
+}
+/* Styling for the generate button */
+#generateButton {
+    width: 15vw;
+    height: 3rem;
+    border-radius: 20px;
+    background-color: #FB9280;
+    font-size: 1.2rem;
+    font-family: 'Prompt', sans-serif;
+    cursor: pointer;
+}
+
+#generateButton:hover {
+    background-color: #ff7f50; /* Slightly lighter color */
+    transform: scale(1.1); /* Button grows a little */
+}
+
+#generateButton:active {
+    background-color: #ff5733; /* Darker shade when clicked */
+    transform: scale(0.9); /* Slight shrink effect to show it's pressed */
+}
+
+#perfumeImage {
+    display: none;
+    width: 30%;
+    margin-top: 5%;
+}
+
+#perfumeName {
+    font-family: 'Playfair Display', cursive; 
+    font-weight: 23; 
+    color: #333; 
+    text-align: center; 
+}
+
+/* Flexbox for dropdowns and + button */
+#dropdown-container {
+    display: flex;
+    justify-content: flex-start; /* Align items to the left */
+    align-items: center;
+    margin: 30px;
+}
+
+select {
+    margin-right: 15px; /* Space between the dropdowns */
+    padding: 5px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+/* Styling for the + button */
+.add-button {
+    font-size: 32px; /* Larger font for the + button */
+    width: 50px; /* Width of the button */
+    height: 50px; /* Height of the button */
+    background-color: #f1f1f1;
+    border: 2px solid #000;
+    border-radius: 50%; /* Circle shape */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the + button */
+.add-button:hover {
+    background-color: #ffcc00;
+}
+
+/* Basic styles for body */
+body {
+    font-family: 'Exo 2', sans-serif;
+    color: #333;
+    background-color: #fff; /* Default background */
+    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transitions */
+}
+
+/* color coding background depending on combo */
+body.romantic {
+    background-color: #f1d0d6;
+    color: #ff4b5c;
+}
+
+body.energetic {
+    background-color: #fbc46c;
+    color: #f79285;
+}
+
+body.elegant {
+    background-color: #b39ddb; 
+    color: #512da8;
+}
+
+body.sensual {
+    background-color: #b77d77; 
+    color: #ffffff;
+}
+
+body.delicious {
+    background-color: #ac3030; 
+    color: #FFFCEF;
+}
+
+body.fresh {
+    background-color: #BAD6EB; 
+    color: #FFF9F0;
+}
+
+body.crisp {
+    background-color: #aed581; 
+    color: #2c6e21;
+}
+
+body.earthy {
+    background-color: #B7957F;
+    color: #4c2B08;
+}
+
+/* Default fallback style when no match is found */
+body.default {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Additional styles for the perfume name and image */
+#perfumeName {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+#perfumeImage {
+    width: 400px;
+    margin-top: 10px;
+    display: none; 
+    justify-content: center;
+    margin-left: auto; 
+    margin-right: auto; 
+}
+
+/* mobile/responsiveness */
+@media (max-width: 600px) {
+    body {
+        flex-direction: column; /* Stack elements vertically on small screens */
+    }
+    
+    h1 {
+        font-size: 2.5em; /* Adjust font size for mobile */
+    }
+    
+    select {
+        width: 80%; /* Slightly smaller dropdown width on mobile */
+    }
+
+    button {
+        font-size: 1 em; /* Smaller text size for mobile */
+        padding: 12px 25px; /* Adjust padding for mobile */
+    }
+}
