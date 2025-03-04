@@ -35,7 +35,7 @@ h3{
 }
 /* Styling for the generate button */
 #generateButton {
-    width: 15vw;
+    width: 120px;
     height: 3rem;
     border-radius: 20px;
     background-color: #FB9280;
