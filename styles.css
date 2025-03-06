@@ -35,11 +35,11 @@ h3{
 }
 /* Styling for the generate button */
 #generateButton {
-    width: 120px;
-    height: 48px;
-    border-radius: 20px;
+    width: 130px;
+    height: 60px;
+    border-radius: 23px;
     background-color: #FB9280;
-    font-size: 16px;
+    font-size: 15px;
     font-family: 'Prompt', sans-serif;
     cursor: pointer;
 }
@@ -73,6 +73,20 @@ h3{
     justify-content: flex-start; /* Align items to the left */
     align-items: center;
     margin: 30px;
+}
+
+.container-top{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-bottom{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 select {
@@ -190,4 +204,10 @@ body.default {
         font-size: 1 em; /* Smaller text size for mobile */
         padding: 12px 25px; /* Adjust padding for mobile */
     }
+}
+
+.feedback.error{
+    font-family: 'Playfair Display', serif; 
+    font-size: 20px; 
+    color: #000000; 
 }

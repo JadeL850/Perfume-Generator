@@ -17,31 +17,39 @@
     <h1>What <i>impression</i> do you want to leave?</h1>
     <h3>Pick a combo – any combo – I'll hint when it's the best one 🤭</h3>
     
-    <label for="moodSelect">Select your mood:</label>
-    <select id="moodSelect">
-        <option value="romantic">Romantic 🌹</option>
-        <option value="energetic">Energetic ⚡️</option>
-        <option value="elegant">Elegant 😌</option>
-        <option value="sensual">Sensual 😏</option>
-        <option value="delicious">Delicious 😋</option>
-        <option value="fresh">Fresh 🎐</option>
-        <option value="crisp">Crisp 🍏</option>
-        <option value="earthy">Earthy 🍂</option>
-        
-    </select>
-    
-    <label for="noteInput">Choose a fragrance note:</label>
-    <select id="noteInput">
-        <option value="vanilla">Vanilla 🍦</option>
-        <option value="citrus">Citrus 🍋 </option>
-        <option value="floral">Floral 🌸</option>
-        <option value="oud">Oud 🔥</option>
-        <option value="gourmand">Gourmand 🍭</option>
-        <option value="aquatic">Aquatic 💧</option>
-        <option value="green">Green 🌿</option>
-        <option value="woody">Woody 🪵</option>
-    </select>
-    
+    <div class="container-top">
+        <div>
+            <label for="moodSelect">Select your mood:</label>
+            <select id="moodSelect">
+                <option value="romantic">Romantic 🌹</option>
+                <option value="energetic">Energetic ⚡️</option>
+                <option value="elegant">Elegant 😌</option>
+                <option value="sensual">Sensual 😏</option>
+                <option value="delicious">Delicious 😋</option>
+                <option value="fresh">Fresh 🎐</option>
+                <option value="crisp">Crisp 🍏</option>
+                <option value="earthy">Earthy 🍂</option>
+                
+            </select>
+        </div>
+    </div>
+
+    <div class="container-bottom">
+        <div>
+            <label for="noteInput">Choose a fragrance note:</label>
+            <select id="noteInput">
+                <option value="vanilla">Vanilla 🍦</option>
+                <option value="citrus">Citrus 🍋 </option>
+                <option value="floral">Floral 🌸</option>
+                <option value="oud">Oud 🔥</option>
+                <option value="gourmand">Gourmand 🍭</option>
+                <option value="aquatic">Aquatic 💧</option>
+                <option value="green">Green 🌿</option>
+                <option value="woody">Woody 🪵</option>
+            </select>
+        </div>
+    </div>
+
     <br>
     <button onclick="generatePerfume()" id="generateButton">Get Perfume</button>
     
@@ -92,31 +100,201 @@ function generatePerfume() {
     const perfume = perfumes[key]; // tries to find matches for combo
     const perfumeNameElement = document.getElementById("perfumeName");
     const perfumeImageElement = document.getElementById("perfumeImage");
-    
+    const feedbackDiv = document.createElement('div'); // Create a feedback div to display messages
+
+    // Clearing any previous feedback
+    feedbackDiv.style.display = "none";
+
     if (perfume) {
         // If match found, then display
         perfumeNameElement.textContent = `Recommended Perfume: ${perfume.name}`;
         perfumeImageElement.src = perfume.img;
         perfumeImageElement.style.display = "block";
-        document.body.className = mood; //creation of "mood" class so background color changes per combo
+        document.body.className = mood; // creation of "mood" class so background color changes per combo
+
+        // Successful combo encouragement/reinforcements
+        let feedbackMessage = `Great choice! ${mood.charAt(0).toUpperCase() + mood.slice(1)} and ${note.charAt(0).toUpperCase() + note.slice(1)} are the perfect combination for a fragrance.`;
+        let feedbackClass = "correct";
+        feedbackDiv.innerHTML = feedbackMessage;
+        feedbackDiv.className = `feedback ${feedbackClass}`;
+        feedbackDiv.style.display = "block";
+
     } else {
-        // If no match is found, default option to be shown
-        perfumeNameElement.textContent = " 🤷🏻‍♀️ Hmm – no recs yet, try another combo!";
-        perfumeImageElement.style.display = "none"; // Hide the perfume image when there's no match
-        noRecMessage.style.display = "block"; // Show the "no recs" message
-        noRecImage.style.display = "block"; // Show the "no recs" image
+        // If no match is found, soft error messages are shown to guide user
+        let feedbackMessage = "Hmm, that combination doesn't seem to match. Try a different one!";
+        switch (key) {
+            //romantic soft errors
+            case "romantic_citrus":
+                feedbackMessage = "'Romantic' and 'Citrus' don't match – Citrus is a <u>stimulating</u> scent.";
+                break;
+            case "romantic_floral":
+                feedbackMessage = "Not quite – typically, 'Floral' is associated with <u>refined</u>, classic, dignified scents!";
+                break;
+            case "romantic_oud":
+                feedbackMessage = "Close – but 'Oud' scents are smokier. Pair it with something <u>intimate</u>... ;)";
+                break;
+            case "romantic_gourmand":
+                feedbackMessage = "Close – but gourmand associates with a <u>tasty</u> feeling.";
+                break;
+            case "romantic_aquatic":
+                feedbackMessage = "'Aquatic' scents usually pair better with a <u>refreshing</u> mood, no?";
+                break;
+            case "romantic_green":
+                feedbackMessage = "'Green' are usually sharper scents that cut through the air – they're brisk, dry, and <u>crispy</u>.";
+                break;
+            case "romantic_woody":
+                feedbackMessage = "Close – but 'Woody' scents are robust. They're down-to-<u>earth</u>.";
+                break;
 
-        // Optional: You can also change the background to something like gray or a neutral color
-        document.body.style.backgroundColor = "#f0f0f0"; // Set background color when no match is found
+            //energetic soft errors
+            case "energetic_romantic":
+                feedbackMessage = "'Romantic' and 'Energetic' don't match – try pairing 'energetic' with something sharp, <u>sour</u>, and invigorating.";
+                break;
+            case "energetic_floral":
+                feedbackMessage = "Not quite – typically, 'Floral' is associated with <u>refined</u>, classic, dignified scents!";
+                break;
+            case "energetic_oud":
+                feedbackMessage = "Close – but 'Oud' scents are smokier. Pair it with something <u>intimate </u>... ;)";
+                break;
+            case "energetic_gourmand":
+                feedbackMessage = "Not really – gourmand associates with a <u>tasty </u> feeling.";
+                break;
+            case "energetic_aquatic":
+                feedbackMessage = "'Aquatic' scents usually pair better with a <u>refreshing</u> mood, no?";
+                break;
+            case "energetic_green":
+                feedbackMessage = "'Green' are usually sharper scents that cut through the air – they're brisk, dry, and <u>crispy</u>.";
+                break;
+            case "energetic_woody":
+                feedbackMessage = "Close – but 'Woody' scents are robust. They're down-to-<u>earth</u>.";
+                break;
+
+            //elegant soft errors
+            case "elegant_vanilla":
+                feedbackMessage = "Not quite – try pairing 'vanilla' with something <u>tastier</u>, or something more <u>amorous</u>.";
+                break;
+            case "elegant_citrus":
+                feedbackMessage = "Not quite – 'citrus' is too sour; think of what goes in timeless, elegant perfumes like Marc Jacobs' <u>Daisy</u>.";
+                break;
+            case "energetic_oud":
+                feedbackMessage = "Close – but 'Oud' scents are smokier. Too bold to be elegant. Pair it with something <u>intimate </u>... ;)";
+                break;
+            case "energetic_gourmand":
+                feedbackMessage = "Not really – gourmand associates with a <u>tasty </u> feeling.";
+                break;
+            case "energetic_aquatic":
+                feedbackMessage = "'Aquatic' scents usually pair better with a <u>refreshing</u> mood, no?";
+                break;
+            case "energetic_green":
+                feedbackMessage = "'Green' are usually sharper scents that cut through the air – they're brisk, dry, and <u>crispy</u>.";
+                break;
+            case "energetic_woody":
+                feedbackMessage = "Close – but 'Woody' scents are robust. They're down-to-<u>earth</u>.";
+                break;
+
+            //delicious soft errors
+            case "delicious_vanilla":
+                feedbackMessage = "So close! But in my opinion, 'vanilla' is more <u>amorous</u> than 'delicious'. Other <u>sweets</u> exist!";
+                break;
+            case "delicious_citrus":
+                feedbackMessage = "'Citrus' can definitely be tasty! But think <u>sweeter</u>'.";
+                break;
+            case "delicious_floral":
+                feedbackMessage = "Flowers are tasty? Huh. Instead, think about a tasty bag of <u>candy</u>";
+                break;
+            case "delicious_oud":
+                feedbackMessage = "Not really – gourmand associates with a <u>tasty </u> feeling. Fiery smoke isn't exactly tasty...";
+                break;
+            case "delicious_aquatic":
+                feedbackMessage = "'Aquatic' scents usually pair better with a <u>refreshing</u> mood, no?";
+                break;
+            case "delicious_green":
+                feedbackMessage = "'Green' are usually sharper scents that cut through the air – they're brisk, dry, and <u>crispy</u>.";
+                break;
+            case "delicious_woody":
+                feedbackMessage = "Close – but 'Woody' scents are robust. They're down-to-<u>earth</u>.";
+                break;
+
+            //fresh soft errors
+            case "fresh_vanilla":
+                feedbackMessage = "Not quite – in my opinion, 'vanilla' is more <u>amorous</u> than 'fresh' because it's a warm scent. Think cooling environments like large bodies of <u>water</u>.";
+                break;
+            case "fresh_citrus":
+                feedbackMessage = "So close! 'Citrus' can definitely be fresh! But maybe think of the fresh breeze near the <u>seaside</u>'.";
+                break;
+            case "fresh_floral":
+                feedbackMessage = "So close! But maybe think of the fresh breeze near the <u>seaside</u>.";
+                break;
+            case "fresh_gourmand":
+                feedbackMessage = "Not quite – But maybe think of the fresh breeze near the <u>seaside</u>.";
+                break;
+            case "fresh_oud":
+                feedbackMessage = "Not really – Fiery smoke isn't exactly fresh... But maybe think of the fresh breeze near the <u>seaside</u>.";
+                break;
+            case "fresh_green":
+                feedbackMessage = "So close! But in perfumery,'Green' are usually sharper scents that are woodsy. Maybe think of the <u>seaside</u>.";
+                break;
+            case "fresh_woody":
+                feedbackMessage = "Not quite – 'Woody' scents are robust and warm. They're down-to-<u>earth</u>. Instead of the soil, think of a nice, breezy day near the <u>beach</u>!";
+                break;
+
+            //crisp soft errors
+            case "crisp_vanilla":
+                feedbackMessage = "Not quite – in my opinion, 'vanilla' is more amorous than 'crisp' because it's a warm scent. Think about a crisp apple – is it red or <u>green</u>?";
+                break;
+            case "crisp_citrus":
+                feedbackMessage = "So close! 'Citrus' can definitely be crisp! But maybe think about a crisp apple – is it red or <u>green</u>?";
+                break;
+            case "crisp_floral":
+                feedbackMessage = "Not quite - flowers aren't usually crisp until they wilt and dry out. <u>Green</u> grass on the otherhand, is definitely crisp!";
+                break;
+            case "crisp_gourmand":
+                feedbackMessage = "Not quite - gourmand is candy-like. <u>Green</u> grass on the otherhand, is definitely crisp!";
+                break;
+            case "crisp_oud":
+                feedbackMessage = "I can see why you think that way – But rather than fiery smoke maybe think of <u>Green</u> grass on the otherhand, which is definitely crisp!";
+                break;
+            case "crisp_aquatic":
+                feedbackMessage = "Not quite – think of <u>Green</u> grass on the otherhand, which is definitely crisp!!";
+                break;
+            case "crisp_woody":
+                feedbackMessage = "Close! But in perfumery,'Woody' are usually warmer scents that are robust, more down-to-earth. Maybe think of the sharp scent of a freshly mowed <u>green</u> lawn...";
+                break;
+            
+                
+            //earthy soft errors
+            case "earthy_vanilla":
+                feedbackMessage = "Not quite – sweetness of 'vanilla' doesn't match with the robustness of 'earthy'. Think of the <u>trees</u> that grow around the earth.";
+                break;
+            case "earthy_citrus":
+                feedbackMessage = "Not quite – Think of the <u>trees</u> that grow around the earth.";
+                break;
+            case "earthy_floral":
+                feedbackMessage = "Not quite - think of the <u>trees</u> that grow around the earth.";
+                break;
+            case "earthy_gourmand":
+                feedbackMessage = "The soil is sweet and tasty to you? Huh. Think of the <u>trees</u> that grow around the earth.";
+                break;
+            case "earthy_aquatic":
+                feedbackMessage = "water and soil are two different elements. Think closely –  Think of the <u>trees</u> that grow around the earth.";
+                break;
+            case "earthy_green":
+                feedbackMessage = "So close! But think closely –  Think of the <u>trees</u> that grow around the earth.";
+                break;
+            case "earthy_oud":
+                feedbackMessage = "So close! But 'Oud' refers to warmer, smokier scents. Instead,think of the <u>trees</u> that grow around the earth.";
+                break;
+        }
+
+        feedbackDiv.innerHTML = feedbackMessage;
+        feedbackDiv.className = "feedback error";
+        feedbackDiv.style.display = "block";
     }
+
+    // Append feedbackDiv to the body or a specific element
+    document.body.appendChild(feedbackDiv);
 }
 
-// If no match found, default "floral honeysuckle" perfume generated for user
-function getRandomPerfume() {
-    const perfumeKeys = Object.keys(perfumes);
-    const randomKey = perfumeKeys[Math.floor(Math.random() * perfumeKeys.length)];
-    return perfumes[randomKey];
-}
     </script>
     
 </body>
